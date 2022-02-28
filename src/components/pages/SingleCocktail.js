@@ -21,8 +21,8 @@ const SingleCocktail = () => {
     if (cocktail.length > 0) {
       const {
         strDrink: name,
-        setDrinkThumb: cocktailImg,
-        StrAlcoholic: info,
+        strDrinkThumb: cocktailImg,
+        strAlcoholic: info,
         strCategory: category,
         strGlass: glass,
         strInstructions: instructions,
@@ -71,7 +71,7 @@ const SingleCocktail = () => {
     } = modifiedCocktail;
     console.log(ingredients);
     return (
-      <>
+      <div style={{ textAlign: "center" }}>
         {loading ? (
           <h1>Loading....</h1>
         ) : (
@@ -103,7 +103,7 @@ const SingleCocktail = () => {
             </div>
           </>
         )}
-      </>
+      </div>
     );
   }
 };

@@ -39,6 +39,9 @@ const CocktailList = () => {
     return <h1>Loading.....</h1>;
   }
 
+  if (!cocktails) {
+    return <h2>no cocktail match your search</h2>;
+  }
   return (
     <div className="cocktailList">
       {modifiedCocktail.map((item) => {

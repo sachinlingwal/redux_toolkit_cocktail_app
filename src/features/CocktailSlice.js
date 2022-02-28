@@ -9,11 +9,24 @@ export const fetchCocktails = createAsyncThunk(
     return data;
   }
 );
+
 export const fetchSingleCocktail = createAsyncThunk(
   "cocktail/fetchCocktail",
   async ({ id }) => {
     let res = await fetch(
       `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`
+    );
+    let data = await res.json();
+    console.log(data);
+    return data;
+  }
+);
+
+export const fetchSearchCocktail = createAsyncThunk(
+  "cocktail/fetchSearchCocktail",
+  async ({ searchText }) => {
+    let res = await fetch(
+      `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchText}`
     );
     let data = await res.json();
     console.log(data);
@@ -49,6 +62,17 @@ export const cocktailSlice = createSlice({
       state.loading = false;
     },
     [fetchSingleCocktail.rejected]: (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
+    },
+    [fetchSearchCocktail.pending]: (state) => {
+      state.loading = true;
+    },
+    [fetchSearchCocktail.fulfilled]: (state, action) => {
+      state.cocktails = action.payload.drinks;
+      state.loading = false;
+    },
+    [fetchSearchCocktail.rejected]: (state, action) => {
       state.error = action.payload;
       state.loading = false;
     },
