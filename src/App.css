@@ -1,0 +1,13 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+button {
+  padding: 1em 2em;
+  background-color: rgb(74, 74, 219);
+  color: white;
+  outline: none;
+  border: none;
+}

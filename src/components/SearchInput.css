@@ -1,0 +1,13 @@
+.search label {
+  font-size: 1.5rem;
+  padding-right: 1rem;
+}
+.search input {
+  margin: 0.5rem 1rem;
+  /* outline: none; */
+  border: 1px dashed black;
+  border-radius: 4rem;
+}
+.search input::placeholder {
+  padding-left: 1rem;
+}
