@@ -11,6 +11,7 @@ const CocktailList = () => {
   const [modifiedCocktail, setModifiedCocktail] = useState([]);
 
   const dispatch = useDispatch();
+  const [text, setText] = useState("");
 
   useEffect(() => {
     dispatch(fetchCocktails());
@@ -42,24 +43,60 @@ const CocktailList = () => {
   if (!cocktails) {
     return <h2>no cocktail match your search</h2>;
   }
+
   return (
-    <div className="cocktailList">
-      {modifiedCocktail.map((item) => {
-        const { id, name, glass, imageUrl, info } = item;
-        // console.log(id);
-        return (
-          <div className="container" key={id}>
-            <img src={imageUrl} alt="img" height={300} width={300} />
-            <h3 className="title">{name}</h3>
-            <h3 className="title">{glass}</h3>
-            <h3 className="title">{info}</h3>
-            <Link to={`cocktail/${id}`}>
-              <button>More Details</button>
-            </Link>
-          </div>
-        );
-      })}
-    </div>
+    <>
+      <input
+        type="text"
+        placeholder="Search Here"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
+      <div className="cocktailList">
+        {modifiedCocktail
+          .filter((item) => {
+            if (text === "") {
+              return item;
+            } else if (item.name.toLowerCase().includes(text.toLowerCase())) {
+              return item;
+            } else if (item.info.toLowerCase().includes(text.toLowerCase())) {
+              return item;
+            } else if (item.glass.toLowerCase().includes(text.toLowerCase())) {
+              return item;
+            }
+          })
+          .map((item) => {
+            const { id, name, glass, imageUrl, info } = item;
+            return (
+              <div className="container" key={id}>
+                <img src={imageUrl} alt="img" height={300} width={300} />
+                <h3 className="title">{name}</h3>
+                <h3 className="title">{glass}</h3>
+                <h3 className="title">{info}</h3>
+                <Link to={`cocktail/${id}`}>
+                  <button>More Details</button>
+                </Link>
+              </div>
+            );
+          })}
+
+        {/* {modifiedCocktail.map((item) => {
+          const { id, name, glass, imageUrl, info } = item;
+          // console.log(id);
+          return (
+            <div className="container" key={id}>
+              <img src={imageUrl} alt="img" height={300} width={300} />
+              <h3 className="title">{name}</h3>
+              <h3 className="title">{glass}</h3>
+              <h3 className="title">{info}</h3>
+              <Link to={`cocktail/${id}`}>
+                <button>More Details</button>
+              </Link>
+            </div>
+          );
+        })} */}
+      </div>
+    </>
   );
 };
 
